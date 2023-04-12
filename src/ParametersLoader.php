@@ -12,8 +12,10 @@ class ParametersLoader
 {
     private const PREFIX = 'ssm:';
 
-    public function __construct(private SsmClient $ssmClient, private int $ttl)
-    {
+    public function __construct(
+        private SsmClient $ssmClient,
+        private int $ttl
+    ) {
     }
 
     /**

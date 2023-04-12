@@ -7,6 +7,7 @@ namespace Sunaoka\LaravelSsmParametersLoader\Tests;
 use Aws\MockHandler;
 use Aws\Result;
 use Aws\Ssm\SsmClient;
+use RuntimeException;
 use Sunaoka\LaravelSsmParametersLoader\ParametersLoader;
 
 class ParametersLoaderTest extends TestCase
@@ -63,7 +64,7 @@ class ParametersLoaderTest extends TestCase
 
         $loader = new ParametersLoader($client, 0);
 
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessageMatches('/^Invalid AWS Systems Manager parameter store names:/');
 
         $loader->load();
