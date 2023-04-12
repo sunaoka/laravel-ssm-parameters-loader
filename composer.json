@@ -1,6 +1,6 @@
 {
     "name": "sunaoka/laravel-ssm-parameters-loader",
-    "description": "",
+    "description": "Load values from AWS SSM Parameter store into environment variables for Laravel",
     "keywords": ["laravel", "aws", "ssm", "env"],
     "type": "library",
     "license": "MIT",
