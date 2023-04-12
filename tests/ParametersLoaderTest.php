@@ -33,8 +33,8 @@ class ParametersLoaderTest extends TestCase
 
         $client = new SsmClient(config('ssm-parameters-loader.ssm') + ['handler' => $handler]);
 
-        $ssm = new ParametersLoader($client, 0);
-        $ssm->loadParameters();
+        $loader = new ParametersLoader($client, 0);
+        $loader->load();
 
         for ($i = 0; $i < 20; ++$i) {
             self::assertSame("Value{$i}", getenv("ENV{$i}"));
@@ -61,11 +61,11 @@ class ParametersLoaderTest extends TestCase
 
         $client = new SsmClient(config('ssm-parameters-loader.ssm') + ['handler' => $handler]);
 
-        $ssm = new ParametersLoader($client, 0);
+        $loader = new ParametersLoader($client, 0);
 
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessageMatches('/^Invalid AWS Systems Manager parameter store names:/');
 
-        $ssm->loadParameters();
+        $loader->load();
     }
 }

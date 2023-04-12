@@ -19,7 +19,7 @@ class ParametersLoader
     /**
      * @link https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameters.html
      */
-    public function loadParameters(): void
+    public function load(): void
     {
         /** @var array<string, string> $parameters */
         $parameters = Cache::remember('ssm-parameters-loader', $this->ttl, function (): array {

@@ -30,11 +30,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider implements Def
             return;  // @codeCoverageIgnore
         }
 
-        $ssm = new ParametersLoader(
+        $loader = new ParametersLoader(
             new SsmClient((array)$config->get('ssm-parameters-loader.ssm')),
             (int)$config->get('ssm-parameters-loader.ttl', 0) // @phpstan-ignore-line
         );
-        $ssm->loadParameters();
+        $loader->load();
     }
 
     /**
