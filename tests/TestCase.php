@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Sunaoka\LaravelSsmParametersStore\Tests;
+
+use Illuminate\Foundation\Application;
+use Sunaoka\LaravelSsmParametersStore\ServiceProvider;
+
+abstract class TestCase extends \Orchestra\Testbench\TestCase
+{
+    /**
+     * Get package providers.
+     *
+     * @param Application $app
+     *
+     * @return array<int, class-string>
+     */
+    protected function getPackageProviders($app): array
+    {
+        return [
+            ServiceProvider::class,
+        ];
+    }
+
+    /**
+     * Define environment setup.
+     *
+     * @param Application $app
+     *
+     * @return void
+     */
+    protected function defineEnvironment($app): void
+    {
+        $app['config']->set('ssm-parameters-store', [
+            'enable' => true,
+            'ttl'    => 0,
+            'ssm'    => [
+                'credentials' => [
+                    'key'    => 'key',
+                    'secret' => 'secret',
+                    'token'  => null,
+                ],
+                'region'      => 'us-east-1',
+                'version'     => 'latest',
+                'endpoint'    => null,
+            ],
+        ]);
+    }
+}
