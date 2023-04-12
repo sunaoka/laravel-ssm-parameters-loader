@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sunaoka\LaravelSsmParametersStore;
+namespace Sunaoka\LaravelSsmParametersLoader;
 
 use Aws\Ssm\SsmClient;
 use Illuminate\Config\Repository;
@@ -19,20 +19,20 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider implements Def
     public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/ssm-parameters-store.php',
-            'ssm-parameters-store'
+            __DIR__ . '/../config/ssm-parameters-loader.php',
+            'ssm-parameters-loader'
         );
 
         /** @var Repository $config */
         $config = $this->app->make('config');
 
-        if ($config->get('ssm-parameters-store.enable', false) !== true) {
+        if ($config->get('ssm-parameters-loader.enable', false) !== true) {
             return;  // @codeCoverageIgnore
         }
 
-        $ssm = new SsmService(
-            new SsmClient((array)$config->get('ssm-parameters-store.ssm')),
-            (int)$config->get('ssm-parameters-store.ttl', 0) // @phpstan-ignore-line
+        $ssm = new ParametersLoader(
+            new SsmClient((array)$config->get('ssm-parameters-loader.ssm')),
+            (int)$config->get('ssm-parameters-loader.ttl', 0) // @phpstan-ignore-line
         );
         $ssm->loadParameters();
     }
@@ -43,8 +43,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider implements Def
     public function boot(): void
     {
         $this->publishes(
-            [__DIR__ . '/../config/ssm-parameters-store.php' => $this->app->configPath('ssm-parameters-store.php')],
-            'ssm-parameters-store-config'
+            [__DIR__ . '/../config/ssm-parameters-loader.php' => $this->app->configPath('ssm-parameters-loader.php')],
+            'ssm-parameters-loader-config'
         );
     }
 

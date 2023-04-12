@@ -1,5 +1,5 @@
 {
-    "name": "sunaoka/laravel-ssm-parameters-store",
+    "name": "sunaoka/laravel-ssm-parameters-loader",
     "description": "",
     "keywords": ["laravel", "aws", "ssm", "env"],
     "type": "library",
@@ -22,12 +22,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Sunaoka\\LaravelSsmParametersStore\\": "src/"
+            "Sunaoka\\LaravelSsmParametersLoader\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Sunaoka\\LaravelSsmParametersStore\\Tests\\": "tests/"
+            "Sunaoka\\LaravelSsmParametersLoader\\Tests\\": "tests/"
         }
     },
     "extra": {
@@ -36,7 +36,7 @@
         },
         "laravel": {
             "providers": [
-                "Sunaoka\\LaravelSsmParametersStore\\ServiceProvider"
+                "Sunaoka\\LaravelSsmParametersLoader\\ServiceProvider"
             ],
             "aliases": {
             }

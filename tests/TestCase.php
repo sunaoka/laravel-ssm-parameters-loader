@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Sunaoka\LaravelSsmParametersStore\Tests;
+namespace Sunaoka\LaravelSsmParametersLoader\Tests;
 
 use Illuminate\Foundation\Application;
-use Sunaoka\LaravelSsmParametersStore\ServiceProvider;
+use Sunaoka\LaravelSsmParametersLoader\ServiceProvider;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -32,7 +32,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      */
     protected function defineEnvironment($app): void
     {
-        $app['config']->set('ssm-parameters-store', [
+        $app['config']->set('ssm-parameters-loader', [
             'enable' => true,
             'ttl'    => 0,
             'ssm'    => [

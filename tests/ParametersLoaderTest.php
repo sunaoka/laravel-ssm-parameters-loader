@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Sunaoka\LaravelSsmParametersStore\Tests;
+namespace Sunaoka\LaravelSsmParametersLoader\Tests;
 
 use Aws\MockHandler;
 use Aws\Result;
 use Aws\Ssm\SsmClient;
-use Sunaoka\LaravelSsmParametersStore\SsmService;
+use Sunaoka\LaravelSsmParametersLoader\ParametersLoader;
 
-class SsmServiceTest extends TestCase
+class ParametersLoaderTest extends TestCase
 {
     public function test_load_parameters(): void
     {
@@ -31,9 +31,9 @@ class SsmServiceTest extends TestCase
             }
         }
 
-        $client = new SsmClient(config('ssm-parameters-store.ssm') + ['handler' => $handler]);
+        $client = new SsmClient(config('ssm-parameters-loader.ssm') + ['handler' => $handler]);
 
-        $ssm = new SsmService($client, 0);
+        $ssm = new ParametersLoader($client, 0);
         $ssm->loadParameters();
 
         for ($i = 0; $i < 20; ++$i) {
@@ -59,9 +59,9 @@ class SsmServiceTest extends TestCase
             }
         }
 
-        $client = new SsmClient(config('ssm-parameters-store.ssm') + ['handler' => $handler]);
+        $client = new SsmClient(config('ssm-parameters-loader.ssm') + ['handler' => $handler]);
 
-        $ssm = new SsmService($client, 0);
+        $ssm = new ParametersLoader($client, 0);
 
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessageMatches('/^Invalid AWS Systems Manager parameter store names:/');

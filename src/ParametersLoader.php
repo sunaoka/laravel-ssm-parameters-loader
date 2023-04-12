@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Sunaoka\LaravelSsmParametersStore;
+namespace Sunaoka\LaravelSsmParametersLoader;
 
 use Aws\Ssm\SsmClient;
 use Illuminate\Support\Facades\Cache;
 use RuntimeException;
 
-class SsmService
+class ParametersLoader
 {
     private const PREFIX = 'ssm:';
 
@@ -22,7 +22,7 @@ class SsmService
     public function loadParameters(): void
     {
         /** @var array<string, string> $parameters */
-        $parameters = Cache::remember('ssm-parameters-store', $this->ttl, function (): array {
+        $parameters = Cache::remember('ssm-parameters-loader', $this->ttl, function (): array {
             $environments = $this->getEnvironments();
 
             $parameters = [];
