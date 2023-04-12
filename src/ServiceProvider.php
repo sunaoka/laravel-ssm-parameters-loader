@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Sunaoka\LaravelSsmParametersLoader;
 
 use Aws\Ssm\SsmClient;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Support\DeferrableProvider;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider implements DeferrableProvider
@@ -19,19 +20,22 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider implements Def
             'ssm-parameters-loader'
         );
 
-        if (config('ssm-parameters-loader.enable', false) !== true) {
+        if (config('ssm-parameters-loader.enable', true) !== true) {
             return;  // @codeCoverageIgnore
         }
 
-        $loader = new ParametersLoader(
-            new SsmClient((array)config('ssm-parameters-loader.ssm')),
-            (int)config('ssm-parameters-loader.ttl', 0)  // @phpstan-ignore-line
-        );
-        $loader->load();
+        $this->app->singleton(ParametersLoader::class, function ($app) {
+            return new ParametersLoader(
+                new SsmClient((array)config('ssm-parameters-loader.ssm')),
+                (int)config('ssm-parameters-loader.ttl', 0)  // @phpstan-ignore-line
+            );
+        });
     }
 
     /**
      * Bootstrap services.
+     *
+     * @throws BindingResolutionException
      */
     public function boot(): void
     {
@@ -39,6 +43,12 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider implements Def
             [__DIR__ . '/../config/ssm-parameters-loader.php' => config_path('ssm-parameters-loader.php')],
             'ssm-parameters-loader-config'
         );
+
+        if (config('ssm-parameters-loader.enable', true) &&
+            array_filter(config('ssm-parameters-loader.ssm.credentials', [])) !== [])  // @phpstan-ignore-line
+        {
+            $this->app->make(ParametersLoader::class)->load();
+        }
     }
 
     /**
@@ -48,6 +58,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider implements Def
      */
     public function provides(): array
     {
-        return [SsmClient::class];
+        return [ParametersLoader::class];
     }
 }
