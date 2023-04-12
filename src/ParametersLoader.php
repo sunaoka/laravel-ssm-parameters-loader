@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Sunaoka\LaravelSsmParametersLoader;
 
 use Aws\Ssm\SsmClient;
-use Illuminate\Support\Facades\Cache;
 use RuntimeException;
 
 class ParametersLoader
@@ -24,7 +23,7 @@ class ParametersLoader
     public function load(): void
     {
         /** @var array<string, string> $parameters */
-        $parameters = Cache::remember('ssm-parameters-loader', $this->ttl, function (): array {
+        $parameters = cache()->remember('ssm-parameters-loader', $this->ttl, function (): array {  // @phpstan-ignore-line
             $environments = $this->getEnvironments();
 
             $parameters = [];
