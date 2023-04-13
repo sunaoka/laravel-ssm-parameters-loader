@@ -22,8 +22,22 @@ class ParametersLoader
      */
     public function load(): void
     {
-        /** @var array<string, string> $parameters */
-        $parameters = cache()->remember('ssm-parameters-loader', $this->ttl, function (): array {  // @phpstan-ignore-line
+        $parameters = $this->getParameters();
+
+        foreach ($parameters as $key => $value) {
+            $_SERVER[$key] = $_ENV[$key] = $value;
+            putenv("{$key}={$value}");
+        }
+    }
+
+    /**
+     * @return array<string, string>
+     *
+     * @link https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameters.html
+     */
+    public function getParameters(): array
+    {
+        return cache()->remember('ssm-parameters-loader', $this->ttl, function (): array {  // @phpstan-ignore-line
             $environments = $this->getEnvironments();
 
             $parameters = [];
@@ -51,11 +65,6 @@ class ParametersLoader
 
             return $parameters;
         });
-
-        foreach ($parameters as $key => $value) {
-            $_SERVER[$key] = $_ENV[$key] = $value;
-            putenv("{$key}={$value}");
-        }
     }
 
     /**
