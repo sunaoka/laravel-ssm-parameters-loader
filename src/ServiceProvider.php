@@ -5,16 +5,12 @@ declare(strict_types=1);
 namespace Sunaoka\LaravelSsmParametersLoader;
 
 use Aws\Ssm\SsmClient;
-use Illuminate\Config\Repository;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Support\DeferrableProvider;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider implements DeferrableProvider
 {
     /**
      * Register any application services.
-     *
-     * @throws BindingResolutionException
      */
     public function register(): void
     {
@@ -23,18 +19,16 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider implements Def
             'ssm-parameters-loader'
         );
 
-        /** @var Repository $config */
-        $config = $this->app->make('config');
-
-        if ($config->get('ssm-parameters-loader.enable', false) !== true) {
+        if (config('ssm-parameters-loader.enable', true) !== true) {
             return;  // @codeCoverageIgnore
         }
 
-        $loader = new ParametersLoader(
-            new SsmClient((array)$config->get('ssm-parameters-loader.ssm')),
-            (int)$config->get('ssm-parameters-loader.ttl', 0) // @phpstan-ignore-line
-        );
-        $loader->load();
+        $this->app->singleton(ParametersLoader::class, function ($app) {
+            return new ParametersLoader(
+                new SsmClient((array)config('ssm-parameters-loader.ssm')),
+                (int)config('ssm-parameters-loader.ttl', 0)  // @phpstan-ignore-line
+            );
+        });
     }
 
     /**
@@ -43,7 +37,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider implements Def
     public function boot(): void
     {
         $this->publishes(
-            [__DIR__ . '/../config/ssm-parameters-loader.php' => $this->app->configPath('ssm-parameters-loader.php')],
+            [__DIR__ . '/../config/ssm-parameters-loader.php' => config_path('ssm-parameters-loader.php')],
             'ssm-parameters-loader-config'
         );
     }
@@ -55,6 +49,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider implements Def
      */
     public function provides(): array
     {
-        return [SsmClient::class];
+        return [ParametersLoader::class];
     }
 }
