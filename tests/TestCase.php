@@ -35,6 +35,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $app['config']->set('ssm-parameters-loader', [
             'enable' => true,
             'ttl'    => 0,
+            'prefix' => 'ssm:',
             'ssm'    => [
                 'credentials' => [
                     'key'    => 'key',

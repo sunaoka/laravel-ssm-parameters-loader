@@ -9,20 +9,16 @@ use RuntimeException;
 
 class ParametersLoader
 {
-    private const PREFIX = 'ssm:';
-
     public function __construct(
         private SsmClient $ssmClient,
-        private int $ttl
+        private int $ttl,
+        private string $prefix,
     ) {
     }
 
-    /**
-     * @link https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameters.html
-     */
-    public function load(): void
+    public function load(string $prefix = null): void
     {
-        $parameters = $this->getParameters();
+        $parameters = $this->getParameters($prefix ?? $this->prefix);
 
         foreach ($parameters as $key => $value) {
             $_SERVER[$key] = $_ENV[$key] = $value;
@@ -35,10 +31,10 @@ class ParametersLoader
      *
      * @link https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameters.html
      */
-    public function getParameters(): array
+    public function getParameters(string $prefix = null): array
     {
-        return cache()->remember('ssm-parameters-loader', $this->ttl, function (): array {  // @phpstan-ignore-line
-            $environments = $this->getEnvironments();
+        return cache()->remember('ssm-parameters-loader', $this->ttl, function () use ($prefix): array {  // @phpstan-ignore-line
+            $environments = $this->getEnvironments($prefix ?? $this->prefix);
 
             $parameters = [];
             $invalidParameters = [];
@@ -70,18 +66,18 @@ class ParametersLoader
     /**
      * @return array<string, string>
      */
-    protected function getEnvironments(): array
+    protected function getEnvironments(string $prefix): array
     {
         $environments = getenv(local_only: true);  // @phpstan-ignore-line
         if (!is_array($environments)) {
             return [];  // @codeCoverageIgnore
         }
 
-        $environments = array_filter($environments, static fn(string $value): bool => str_starts_with($value, self::PREFIX));
+        $environments = array_filter($environments, static fn(string $value): bool => str_starts_with($value, $prefix));
         if (count($environments) === 0) {
             return [];
         }
 
-        return array_map(static fn(string $value): string => substr($value, strlen(self::PREFIX)), $environments);
+        return array_map(static fn(string $value): string => substr($value, strlen($prefix)), $environments);
     }
 }
