@@ -161,4 +161,20 @@ class ParametersLoaderTest extends TestCase
             self::assertSame("Value{$i}", $actual["ENV{$i}"]);
         }
     }
+
+    public function test_get_parameters_without_parameters(): void
+    {
+        $handler = new MockHandler();
+        $handler->append(new Result([
+            'Parameters' => [],
+            'InvalidParameters' => [],
+        ]));
+
+        $client = new SsmClient(config('ssm-parameters-loader.ssm') + ['handler' => $handler]);
+
+        $loader = new ParametersLoader($client, 0, 'ssm:');
+        $actual = $loader->getParameters();
+
+        self::assertSame([], $actual);
+    }
 }

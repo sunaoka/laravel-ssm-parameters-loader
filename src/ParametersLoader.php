@@ -33,9 +33,9 @@ class ParametersLoader
      */
     public function getParameters(?string $prefix = null): array
     {
-        return cache()->remember('ssm-parameters-loader', $this->ttl, function () use ($prefix): array {  // @phpstan-ignore-line
+        // @phpstan-ignore-next-line
+        return cache()->remember('ssm-parameters-loader', $this->ttl, function () use ($prefix): array {
             $environments = $this->getEnvironments($prefix ?? $this->prefix);
-
             $parameters = [];
             $invalidParameters = [];
 
