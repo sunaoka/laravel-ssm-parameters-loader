@@ -12,8 +12,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     /**
      * Get package providers.
      *
-     * @param Application $app
-     *
+     * @param  Application  $app
      * @return array<int, class-string>
      */
     protected function getPackageProviders($app): array
@@ -26,25 +25,23 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     /**
      * Define environment setup.
      *
-     * @param Application $app
-     *
-     * @return void
+     * @param  Application  $app
      */
     protected function defineEnvironment($app): void
     {
         $app['config']->set('ssm-parameters-loader', [
             'enable' => true,
-            'ttl'    => 0,
+            'ttl' => 0,
             'prefix' => 'ssm:',
-            'ssm'    => [
+            'ssm' => [
                 'credentials' => [
-                    'key'    => 'key',
+                    'key' => 'key',
                     'secret' => 'secret',
-                    'token'  => null,
+                    'token' => null,
                 ],
-                'region'      => 'us-east-1',
-                'version'     => 'latest',
-                'endpoint'    => null,
+                'region' => 'us-east-1',
+                'version' => 'latest',
+                'endpoint' => null,
             ],
         ]);
     }

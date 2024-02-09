@@ -16,16 +16,16 @@ class ParametersLoaderTest extends TestCase
     {
         $handler = new MockHandler();
 
-        for ($i = 0; $i < 20; ++$i) {
+        for ($i = 0; $i < 20; $i++) {
             putenv("ENV{$i}=ssm:/Path/To/Name{$i}");
             $parameters[] = [
-                'Name'  => "/Path/To/Name{$i}",
-                'Type'  => 'String',
+                'Name' => "/Path/To/Name{$i}",
+                'Type' => 'String',
                 'Value' => "Value{$i}",
             ];
             if (count($parameters) === 10) {
                 $handler->append(new Result([
-                    'Parameters'        => $parameters,
+                    'Parameters' => $parameters,
                     'InvalidParameters' => [],
                 ]));
                 $parameters = [];
@@ -37,7 +37,7 @@ class ParametersLoaderTest extends TestCase
         $loader = new ParametersLoader($client, 0, 'ssm:');
         $loader->load();
 
-        for ($i = 0; $i < 20; ++$i) {
+        for ($i = 0; $i < 20; $i++) {
             self::assertSame("Value{$i}", getenv("ENV{$i}"));
             self::assertSame("Value{$i}", $_SERVER["ENV{$i}"]);
             self::assertSame("Value{$i}", $_ENV["ENV{$i}"]);
@@ -48,16 +48,16 @@ class ParametersLoaderTest extends TestCase
     {
         $handler = new MockHandler();
 
-        for ($i = 0; $i < 20; ++$i) {
+        for ($i = 0; $i < 20; $i++) {
             putenv("ENV{$i}=ssm-custom-prefix:/Path/To/Name{$i}");
             $parameters[] = [
-                'Name'  => "/Path/To/Name{$i}",
-                'Type'  => 'String',
+                'Name' => "/Path/To/Name{$i}",
+                'Type' => 'String',
                 'Value' => "Value{$i}",
             ];
             if (count($parameters) === 10) {
                 $handler->append(new Result([
-                    'Parameters'        => $parameters,
+                    'Parameters' => $parameters,
                     'InvalidParameters' => [],
                 ]));
                 $parameters = [];
@@ -69,7 +69,7 @@ class ParametersLoaderTest extends TestCase
         $loader = new ParametersLoader($client, 0, 'ssm:');
         $loader->load('ssm-custom-prefix:');
 
-        for ($i = 0; $i < 20; ++$i) {
+        for ($i = 0; $i < 20; $i++) {
             self::assertSame("Value{$i}", getenv("ENV{$i}"));
             self::assertSame("Value{$i}", $_SERVER["ENV{$i}"]);
             self::assertSame("Value{$i}", $_ENV["ENV{$i}"]);
@@ -80,12 +80,12 @@ class ParametersLoaderTest extends TestCase
     {
         $handler = new MockHandler();
 
-        for ($i = 0; $i < 20; ++$i) {
+        for ($i = 0; $i < 20; $i++) {
             putenv("ENV{$i}=ssm:/Path/To/Name{$i}");
             $invalidParameters[] = "/Path/To/Name{$i}";
             if (count($invalidParameters) === 10) {
                 $handler->append(new Result([
-                    'Parameters'        => [],
+                    'Parameters' => [],
                     'InvalidParameters' => $invalidParameters,
                 ]));
                 $invalidParameters = [];
@@ -106,16 +106,16 @@ class ParametersLoaderTest extends TestCase
     {
         $handler = new MockHandler();
 
-        for ($i = 0; $i < 20; ++$i) {
+        for ($i = 0; $i < 20; $i++) {
             putenv("ENV{$i}=ssm:/Path/To/Name{$i}");
             $parameters[] = [
-                'Name'  => "/Path/To/Name{$i}",
-                'Type'  => 'String',
+                'Name' => "/Path/To/Name{$i}",
+                'Type' => 'String',
                 'Value' => "Value{$i}",
             ];
             if (count($parameters) === 10) {
                 $handler->append(new Result([
-                    'Parameters'        => $parameters,
+                    'Parameters' => $parameters,
                     'InvalidParameters' => [],
                 ]));
                 $parameters = [];
@@ -127,7 +127,7 @@ class ParametersLoaderTest extends TestCase
         $loader = new ParametersLoader($client, 0, 'ssm:');
         $actual = $loader->getParameters();
 
-        for ($i = 0; $i < 20; ++$i) {
+        for ($i = 0; $i < 20; $i++) {
             self::assertSame("Value{$i}", $actual["ENV{$i}"]);
         }
     }
@@ -136,16 +136,16 @@ class ParametersLoaderTest extends TestCase
     {
         $handler = new MockHandler();
 
-        for ($i = 0; $i < 20; ++$i) {
+        for ($i = 0; $i < 20; $i++) {
             putenv("ENV{$i}=ssm-custom-prefix:/Path/To/Name{$i}");
             $parameters[] = [
-                'Name'  => "/Path/To/Name{$i}",
-                'Type'  => 'String',
+                'Name' => "/Path/To/Name{$i}",
+                'Type' => 'String',
                 'Value' => "Value{$i}",
             ];
             if (count($parameters) === 10) {
                 $handler->append(new Result([
-                    'Parameters'        => $parameters,
+                    'Parameters' => $parameters,
                     'InvalidParameters' => [],
                 ]));
                 $parameters = [];
@@ -157,7 +157,7 @@ class ParametersLoaderTest extends TestCase
         $loader = new ParametersLoader($client, 0, 'ssm:');
         $actual = $loader->getParameters('ssm-custom-prefix:');
 
-        for ($i = 0; $i < 20; ++$i) {
+        for ($i = 0; $i < 20; $i++) {
             self::assertSame("Value{$i}", $actual["ENV{$i}"]);
         }
     }
@@ -166,7 +166,7 @@ class ParametersLoaderTest extends TestCase
     {
         $handler = new MockHandler();
         $handler->append(new Result([
-            'Parameters'        => [],
+            'Parameters' => [],
             'InvalidParameters' => [],
         ]));
 

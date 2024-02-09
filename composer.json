@@ -18,6 +18,7 @@
     },
     "require-dev": {
         "larastan/larastan": "^2.5",
+        "laravel/pint": "^1.5",
         "orchestra/testbench": "^7.0 || ^8.0"
     },
     "autoload": {
