@@ -16,7 +16,7 @@ class ParametersLoader
     ) {
     }
 
-    public function load(string $prefix = null): void
+    public function load(?string $prefix = null): void
     {
         $parameters = $this->getParameters($prefix ?? $this->prefix);
 
@@ -31,7 +31,7 @@ class ParametersLoader
      *
      * @link https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameters.html
      */
-    public function getParameters(string $prefix = null): array
+    public function getParameters(?string $prefix = null): array
     {
         // @phpstan-ignore-next-line
         return cache()->remember('ssm-parameters-loader', $this->ttl, function () use ($prefix): array {
