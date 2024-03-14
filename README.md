@@ -3,7 +3,7 @@
 [![Latest](https://poser.pugx.org/sunaoka/laravel-ssm-parameters-loader/v)](https://packagist.org/packages/sunaoka/laravel-ssm-parameters-loader)
 [![License](https://poser.pugx.org/sunaoka/laravel-ssm-parameters-loader/license)](https://packagist.org/packages/sunaoka/laravel-ssm-parameters-loader)
 [![PHP](https://img.shields.io/packagist/php-v/sunaoka/laravel-ssm-parameters-loader)](composer.json)
-[![Laravel](https://img.shields.io/badge/laravel-9.x%20%7C%2010.x-red)](https://laravel.com/)
+[![Laravel](https://img.shields.io/badge/laravel-%3E=9.x-red)](https://laravel.com/)
 [![Test](https://github.com/sunaoka/laravel-ssm-parameters-loader/actions/workflows/test.yml/badge.svg)](https://github.com/sunaoka/laravel-ssm-parameters-loader/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/sunaoka/laravel-ssm-parameters-loader/branch/main/graph/badge.svg?token=PK3P6j6Jrz)](https://codecov.io/gh/sunaoka/laravel-ssm-parameters-loader)
 

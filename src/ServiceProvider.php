@@ -15,7 +15,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider implements Def
     public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/ssm-parameters-loader.php',
+            __DIR__.'/../config/ssm-parameters-loader.php',
             'ssm-parameters-loader'
         );
 
@@ -25,8 +25,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider implements Def
 
         $this->app->singleton(ParametersLoader::class, function ($app) {
             return new ParametersLoader(
-                new SsmClient((array)config('ssm-parameters-loader.ssm')),
-                (int)config('ssm-parameters-loader.ttl', 0),    // @phpstan-ignore-line
+                new SsmClient((array) config('ssm-parameters-loader.ssm')),
+                (int) config('ssm-parameters-loader.ttl', 0),   // @phpstan-ignore-line
                 config('ssm-parameters-loader.prefix', 'ssm:')  // @phpstan-ignore-line
             );
         });
@@ -38,7 +38,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider implements Def
     public function boot(): void
     {
         $this->publishes(
-            [__DIR__ . '/../config/ssm-parameters-loader.php' => config_path('ssm-parameters-loader.php')],
+            [__DIR__.'/../config/ssm-parameters-loader.php' => config_path('ssm-parameters-loader.php')],
             'ssm-parameters-loader-config'
         );
     }
