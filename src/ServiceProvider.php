@@ -26,8 +26,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider implements Def
         $this->app->singleton(ParametersLoader::class, function ($app) {
             return new ParametersLoader(
                 new SsmClient((array) config('ssm-parameters-loader.ssm')),
-                (int) config('ssm-parameters-loader.ttl', 0),   // @phpstan-ignore-line
-                config('ssm-parameters-loader.prefix', 'ssm:')  // @phpstan-ignore-line
+                (int) config('ssm-parameters-loader.ttl', 0),   // @phpstan-ignore cast.int
+                config('ssm-parameters-loader.prefix', 'ssm:')  // @phpstan-ignore argument.type
             );
         });
     }
