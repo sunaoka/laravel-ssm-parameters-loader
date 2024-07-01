@@ -14,7 +14,8 @@
         "php": "^8.0",
         "aws/aws-sdk-php": "^3.20.1",
         "illuminate/cache": "^9.0 || ^10.0 || ^11.0",
-        "illuminate/support": "^9.0 || ^10.0 || ^11.0"
+        "illuminate/support": "^9.0 || ^10.0 || ^11.0",
+        "sunaoka/aws-ssm-parameters-loader-php": "^1.0.0"
     },
     "require-dev": {
         "larastan/larastan": "^2.7.0",
