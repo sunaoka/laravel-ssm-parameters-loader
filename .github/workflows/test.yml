@@ -10,6 +10,11 @@ jobs:
 
   test:
     runs-on: ${{ matrix.os }}
+
+    env:
+      latest_php: 8.3
+      latest_laravel: 11
+
     strategy:
       fail-fast: false
       matrix:
@@ -43,8 +48,7 @@ jobs:
           composer update --prefer-dist --no-interaction --no-progress
 
       - name: Migrate phpunit XML configuration
-        continue-on-error: true
-        run: vendor/bin/phpunit --migrate-configuration
+        run: vendor/bin/phpunit --migrate-configuration || true
 
       - name: Run test suite
         run: vendor/bin/phpunit --coverage-clover=coverage.xml
@@ -55,3 +59,4 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage.xml
           fail_ci_if_error: false
+        if: matrix.php == env.latest_php && matrix.laravel == env.latest_laravel
