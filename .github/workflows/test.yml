@@ -6,6 +6,10 @@ on:
   schedule:
     - cron: '30 2 * * *'
 
+env:
+  # https://aws.amazon.com/blogs/developer/announcing-the-end-of-support-for-php-runtimes-8-0-x-and-below-in-the-aws-sdk-for-php/
+  AWS_SUPPRESS_PHP_DEPRECATION_WARNING: 1
+
 jobs:
 
   test:
@@ -14,8 +18,6 @@ jobs:
     env:
       latest_php: 8.3
       latest_laravel: 11
-      # https://aws.amazon.com/blogs/developer/announcing-the-end-of-support-for-php-runtimes-8-0-x-and-below-in-the-aws-sdk-for-php/
-      AWS_SUPPRESS_PHP_DEPRECATION_WARNING: 1
 
     strategy:
       fail-fast: false
