@@ -32,7 +32,7 @@ class ParametersLoaderTest extends TestCase
             }
         }
 
-        $client = new SsmClient(config('ssm-parameters-loader.ssm') + ['handler' => $handler]);
+        $client = new SsmClient((array) config('ssm-parameters-loader.ssm') + ['handler' => $handler]);
 
         $loader = new ParametersLoader($client, 0, 'ssm:');
         $loader->load();
@@ -64,7 +64,7 @@ class ParametersLoaderTest extends TestCase
             }
         }
 
-        $client = new SsmClient(config('ssm-parameters-loader.ssm') + ['handler' => $handler]);
+        $client = new SsmClient((array) config('ssm-parameters-loader.ssm') + ['handler' => $handler]);
 
         $loader = new ParametersLoader($client, 0, 'ssm:');
         $loader->load('ssm-custom-prefix:');
@@ -92,7 +92,7 @@ class ParametersLoaderTest extends TestCase
             }
         }
 
-        $client = new SsmClient(config('ssm-parameters-loader.ssm') + ['handler' => $handler]);
+        $client = new SsmClient((array) config('ssm-parameters-loader.ssm') + ['handler' => $handler]);
 
         $loader = new ParametersLoader($client, 0, 'ssm:');
 
@@ -122,7 +122,7 @@ class ParametersLoaderTest extends TestCase
             }
         }
 
-        $client = new SsmClient(config('ssm-parameters-loader.ssm') + ['handler' => $handler]);
+        $client = new SsmClient((array) config('ssm-parameters-loader.ssm') + ['handler' => $handler]);
 
         $loader = new ParametersLoader($client, 0, 'ssm:');
         $actual = $loader->getParameters();
@@ -152,7 +152,7 @@ class ParametersLoaderTest extends TestCase
             }
         }
 
-        $client = new SsmClient(config('ssm-parameters-loader.ssm') + ['handler' => $handler]);
+        $client = new SsmClient((array) config('ssm-parameters-loader.ssm') + ['handler' => $handler]);
 
         $loader = new ParametersLoader($client, 0, 'ssm:');
         $actual = $loader->getParameters('ssm-custom-prefix:');
@@ -170,7 +170,7 @@ class ParametersLoaderTest extends TestCase
             'InvalidParameters' => [],
         ]));
 
-        $client = new SsmClient(config('ssm-parameters-loader.ssm') + ['handler' => $handler]);
+        $client = new SsmClient((array) config('ssm-parameters-loader.ssm') + ['handler' => $handler]);
 
         $loader = new ParametersLoader($client, 0, 'ssm:');
         $actual = $loader->getParameters();
