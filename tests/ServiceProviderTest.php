@@ -12,7 +12,7 @@ class ServiceProviderTest extends TestCase
 {
     public function test_load_parameters(): void
     {
-        $handler = new MockHandler();
+        $handler = new MockHandler;
 
         for ($i = 0; $i < 20; $i++) {
             putenv("ENV{$i}=ssm:/Path/To/Name{$i}");
