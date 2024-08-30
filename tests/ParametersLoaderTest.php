@@ -14,7 +14,7 @@ class ParametersLoaderTest extends TestCase
 {
     public function test_load_parameters(): void
     {
-        $handler = new MockHandler();
+        $handler = new MockHandler;
 
         for ($i = 0; $i < 20; $i++) {
             putenv("ENV{$i}=ssm:/Path/To/Name{$i}");
@@ -46,7 +46,7 @@ class ParametersLoaderTest extends TestCase
 
     public function test_load_parameters_with_custom_prefix(): void
     {
-        $handler = new MockHandler();
+        $handler = new MockHandler;
 
         for ($i = 0; $i < 20; $i++) {
             putenv("ENV{$i}=ssm-custom-prefix:/Path/To/Name{$i}");
@@ -78,7 +78,7 @@ class ParametersLoaderTest extends TestCase
 
     public function test_invalid_parameters(): void
     {
-        $handler = new MockHandler();
+        $handler = new MockHandler;
 
         for ($i = 0; $i < 20; $i++) {
             putenv("ENV{$i}=ssm:/Path/To/Name{$i}");
@@ -104,7 +104,7 @@ class ParametersLoaderTest extends TestCase
 
     public function test_get_parameters(): void
     {
-        $handler = new MockHandler();
+        $handler = new MockHandler;
 
         for ($i = 0; $i < 20; $i++) {
             putenv("ENV{$i}=ssm:/Path/To/Name{$i}");
@@ -134,7 +134,7 @@ class ParametersLoaderTest extends TestCase
 
     public function test_get_parameters_with_custom_prefix(): void
     {
-        $handler = new MockHandler();
+        $handler = new MockHandler;
 
         for ($i = 0; $i < 20; $i++) {
             putenv("ENV{$i}=ssm-custom-prefix:/Path/To/Name{$i}");
@@ -164,7 +164,7 @@ class ParametersLoaderTest extends TestCase
 
     public function test_get_parameters_without_parameters(): void
     {
-        $handler = new MockHandler();
+        $handler = new MockHandler;
         $handler->append(new Result([
             'Parameters' => [],
             'InvalidParameters' => [],
