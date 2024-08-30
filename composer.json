@@ -15,12 +15,12 @@
         "aws/aws-sdk-php": "^3.20.1",
         "illuminate/cache": "^9.0 || ^10.0 || ^11.0",
         "illuminate/support": "^9.0 || ^10.0 || ^11.0",
-        "sunaoka/aws-ssm-parameters-loader-php": "^1.0.0"
+        "sunaoka/aws-ssm-parameters-loader-php": "^1.0.1"
     },
     "require-dev": {
-        "larastan/larastan": "^2.7.0",
-        "laravel/pint": "^1.5",
-        "orchestra/testbench": "^7.0 || ^8.0 || ^9.0"
+        "larastan/larastan": "^2.9.8",
+        "laravel/pint": "^1.5.0",
+        "orchestra/testbench": "^7.45 || ^v8.26 || v9.4"
     },
     "autoload": {
         "psr-4": {
