@@ -23,7 +23,6 @@ class ParametersLoader extends \Sunaoka\SsmParametersLoader\ParametersLoader
      */
     public function getParameters(?string $prefix = null): array
     {
-        // @phpstan-ignore method.nonObject
         return cache()->remember('ssm-parameters-loader', $this->ttl, function () use ($prefix): array {
             return parent::getParameters($prefix);
         });
