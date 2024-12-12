@@ -18,7 +18,7 @@
         "sunaoka/aws-ssm-parameters-loader-php": "^1.0.1"
     },
     "require-dev": {
-        "larastan/larastan": "^2.9.8",
+        "larastan/larastan": "^2.9.8 || ^3.0.2",
         "laravel/pint": "^1.5.0",
         "orchestra/testbench": "^7.45 || ^v8.26 || v9.4"
     },
