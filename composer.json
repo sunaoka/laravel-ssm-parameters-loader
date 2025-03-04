@@ -13,14 +13,14 @@
     "require": {
         "php": "^8.0",
         "aws/aws-sdk-php": "^3.20.1",
-        "illuminate/cache": "^9.0 || ^10.0 || ^11.0",
-        "illuminate/support": "^9.0 || ^10.0 || ^11.0",
+        "illuminate/cache": "^9.0 || ^10.0 || ^11.0 || ^12.0",
+        "illuminate/support": "^9.0 || ^10.0 || ^11.0 || ^12.0",
         "sunaoka/aws-ssm-parameters-loader-php": "^1.0.1"
     },
     "require-dev": {
         "larastan/larastan": "^2.9.8 || ^3.0.2",
         "laravel/pint": "^1.5.0",
-        "orchestra/testbench": "^7.45 || ^v8.26 || v9.4"
+        "orchestra/testbench": "^7.45 || ^8.26 || ^9.4 || ^10.0"
     },
     "autoload": {
         "psr-4": {
