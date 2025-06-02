@@ -17,11 +17,12 @@ class ParametersLoader extends \Sunaoka\SsmParametersLoader\ParametersLoader
     }
 
     /**
+     * @param  array<string, string>|null  $environments
      * @return array<string, string>
      *
      * @link https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_GetParameters.html
      */
-    public function getParameters(?string $prefix = null): array
+    public function getParameters(?string $prefix = null, ?array $environments = null): array
     {
         return cache()->remember('ssm-parameters-loader', $this->ttl, function () use ($prefix): array {
             return parent::getParameters($prefix);
